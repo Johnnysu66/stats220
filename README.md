@@ -14,7 +14,7 @@ A meme that captures how I currently feel about my university studies is ![](htt
 
 ## Beijing is a very beautiful and magnificent city.
 
-### What are really famous in Beijing：
+## What are really famous in Beijing：
 1. **Local food**
 - *Peking duck*
 2. **historic buildings**
@@ -22,7 +22,7 @@ A meme that captures how I currently feel about my university studies is ![](htt
 - *The Forbidden City*
 
 
-### You can buy the ticket for The Forbidden City ：
+## You can buy the ticket for The Forbidden City ：
 [Click here](https://www.forbiddencitytickets.com)
 
 ### The photos of Beijing：
