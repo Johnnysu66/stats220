@@ -1,0 +1,91 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+library(tidyverse)
+```
+
+```{css}
+h2 {
+  color: #003366;
+  font-family: Arial, sans-serif;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+  margin-top: 30px;
+}
+
+p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+
+body {
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+```
+
+## What's going on with this data?
+
+### Insights from Daily Watch Time
+The most frequently recorded watch duration is **5 hours**, suggesting a trend of extended video engagement among users.Several sessions also fall into the **2 to 6 hour** range, indicating moderate to high usage patterns.Longer sessions like **7 or 8 hours** are rare, but they may represent users who leave content playing for extended periods, such as overnight or while multitasking.Overall, the distribution suggests that many users spend a significant portion of their day consuming video content.
+
+### Summary of Watch Time
+A total of **26** video-watching sessions were recorded.The **average time** spent per session was **3 hours**, and the **maximum time** spent in a single session was **8 hours**. Together, all sessions accumulated to a total of **78 hours** of video engagement.
+
+### Insights from Video Type Distribution
+The dataset reveals a wide variety of video content being watched. Among the 26 total responses, most video sessions include multiple types of content.The **most frequently selected combination** was:
+- Entertainment (comedy, short skits, etc.)
+- Food (cooking, mukbang, food reviews)
+- Beauty/Fashion
+- Educational/Informative
+This suggests that users are not only watching for leisure (entertainment and food),  but also show interest in self-improvement and appearance-related content.  
+
+```{r}
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQeB7WK63CMpDPnUypKBQncLhNGM71ptHFKZvjn8D2U-F3ECc_EA-GsiEFCjWOHfO6X929R049JfS7J/pub?output=csv") 
+
+latest_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQeB7WK63CMpDPnUypKBQncLhNGM71ptHFKZvjn8D2U-F3ECc_EA-GsiEFCjWOHfO6X929R049JfS7J/pub?output=csv") %>%
+  rename(Time = 1,
+         Hours_spend = 2,
+         Type_of_video = 3,
+         Interesting_video = 4)
+
+length_data <- nrow(latest_data) #Calculate how many samples there are in total
+print(length_data)
+latest_data %>%
+  select(Hours_spend) %>%
+  max() #Calculate the value of the most time spent per day
+sum_data <- latest_data %>%
+  select(Hours_spend) %>%
+  sum() #Calculate the sum of all statistics
+print(sum_data)
+avr_data <- sum_data / length_data #Calculate the mean by dividing the number of samples by sum
+print(avr_data)
+
+ggplot(latest_data, aes(x = Type_of_video)) +
+  geom_bar(fill = "skyblue") +
+  labs(title = "Video Type Distribution", x = "Type of video", y = "Count") 
+#Demonstrate the distribution of watched video content with a vertical statistical graph
+
+ggplot(latest_data, aes(y = Hours_spend)) +
+  geom_bar(fill = "orange") +
+  labs(title = "Total Watch Time per Day", x = "Count", y = "hours")
+#Demonstrate the distribution of video viewing time with a horizontal statistical graph
+
+```
+
+## Conclusion
+This dynamic report explored 26 short-form video watching sessions, analyzing both the amount of time spent and the types of content consumed.Key findings include:
+- The **average session length** was **3 hours**, with the **longest session lasting 8 hours**, indicating a high level of user engagement.
+- The **most common session length** was 5 hours.
+- Users watched a diverse range of video content. The most frequently selected combination included:
+  - Entertainment
+  - Food
+  - Beauty/Fashion
+  - Educational/Informative
+This combination reflects a balance between entertainment and learning.  
+It suggests that short-form video platforms are not only used for fun and relaxation, but also as a space for personal growth and lifestyle interests.Overall, the data shows that users tend to engage deeply with content, and their preferences span across both practical and recreational categories.
